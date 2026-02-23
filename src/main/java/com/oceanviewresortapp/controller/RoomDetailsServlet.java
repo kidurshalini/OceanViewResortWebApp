@@ -1,18 +1,17 @@
-
 package com.oceanviewresortapp.controller;
 
 import com.oceanviewresortapp.DAO.RoomDetailsDAOImpl;
 import com.oceanviewresortapp.model.RoomDetails;
 
 import javax.servlet.*;
-        import javax.servlet.http.*;
-        import java.io.IOException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
 
+@WebServlet("/RoomDetailsServlet")
 public class RoomDetailsServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String roomType = request.getParameter("roomType");
         String roomNumber = request.getParameter("roomNumber");
         String roomDescription = request.getParameter("roomDescription");
@@ -21,12 +20,7 @@ public class RoomDetailsServlet extends HttpServlet {
         int roomCapacity = Integer.parseInt(request.getParameter("roomCapacity"));
 
         RoomDetails room = new RoomDetails(
-                roomType,
-                roomNumber,
-                roomDescription,
-                roomName,
-                roomAvailabilityStatus,
-                roomCapacity
+                roomType, roomNumber, roomDescription, roomName, roomAvailabilityStatus, roomCapacity
         );
 
         RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
@@ -36,6 +30,7 @@ public class RoomDetailsServlet extends HttpServlet {
             response.sendRedirect("viewRooms.jsp");
         } catch (Exception e) {
             e.printStackTrace();
+            response.getWriter().println("Error inserting room: " + e.getMessage());
         }
     }
 }

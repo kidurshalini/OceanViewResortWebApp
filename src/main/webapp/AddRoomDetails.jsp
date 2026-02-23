@@ -1,10 +1,9 @@
-String roomType = request.getParameter("roomType");
-String roomNumber = request.getParameter("roomNumber");
-String roomDescription = request.getParameter("roomDescription");
-String roomName = request.getParameter("roomName");
-String roomAvailabilityStatus = request.getParameter("roomAvailabilityStatus");
-int roomCapacity = Integer.parseInt(request.getParameter("roomCapacity"));
-
-RoomDetails room = new RoomDetails(roomType, roomNumber, roomDescription, roomName, roomAvailabilityStatus, roomCapacity);
-RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
-dao.insert(room);
+<form action="RoomDetailsServlet" method="post">
+    Room Type: <input type="text" name="roomType" required /><br/>
+    Room Number: <input type="text" name="roomNumber" required /><br/>
+    Room Description: <input type="text" name="roomDescription" required /><br/>
+    Room Name: <input type="text" name="roomName" required /><br/>
+    Availability: <input type="text" name="roomAvailabilityStatus" required /><br/>
+    Capacity: <input type="number" name="roomCapacity" required /><br/>
+    <button type="submit">Add Room</button>
+</form>
