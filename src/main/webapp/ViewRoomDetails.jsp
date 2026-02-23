@@ -7,18 +7,26 @@
 
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Number</th>
+
+        <th>RoomType</th>
+        <th>RoomNumber</th>
+        <th>RoomName</th>
+        <th>RoomDescription</th>
+        <th>RoomAvailabilityStatus</th>
+        <th>RoomCapacity</th>
     </tr>
 
     <%
         for(RoomDetails r : rooms){
     %>
     <tr>
-        <td><%= r.getRoomId() %></td>
+
         <td><%= r.getRoomType() %></td>
         <td><%= r.getRoomNumber() %></td>
+        <td><%= r.getRoomName() %></td>
+        <td><%= r.getRoomDescription() %></td>
+        <td><%= r.getRoomAvailabilityStatus() %></td>
+        <td><%= r.getRoomCapacity() %></td>
     </tr>
     <%
         }
