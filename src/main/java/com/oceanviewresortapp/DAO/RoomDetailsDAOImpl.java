@@ -48,4 +48,50 @@ public class RoomDetailsDAOImpl {
         }
         return list;
     }
+    public void update(RoomDetails room) throws Exception {
+        Connection con = DB_Connection.getConnection();
+        CallableStatement cs = con.prepareCall("{call sp_UpdateRoomDetails(?, ?, ?)}");
+        cs.setInt(1, room.getRoomId());
+        cs.setString(2, room.getRoomType());
+        cs.setString(3, room.getRoomNumber());
+        cs.setString(4, room.getRoomDescription());
+        cs.setString(5, room.getRoomName());
+        cs.setString(6, room.getRoomAvailabilityStatus());
+        cs.setInt(7, room.getRoomCapacity());
+
+        cs.execute();
+        con.close();
+    }
+
+    public void delete(int roomId) throws Exception {
+        Connection con = DB_Connection.getConnection();
+        CallableStatement cs = con.prepareCall("{call sp_DeleteRoom(?)}");
+        cs.setInt(1, roomId);
+        cs.execute();
+        con.close();
+    }
+    public RoomDetails getRoomDetailsById(int roomId) throws Exception {
+        Connection con = DB_Connection.getConnection();
+        if (con == null) {
+            throw new RuntimeException("DB Connection failed");
+        }
+
+        CallableStatement cs = con.prepareCall("{call sp_GetRoomDetailsById(?)}");
+        cs.setInt(1, roomId);
+        ResultSet rs = cs.executeQuery();
+        RoomDetails room = new RoomDetails();
+        if(rs.next()) {
+
+            room.setRoomId(rs.getInt("RoomId"));
+            room.setRoomType(rs.getString("RoomType"));
+            room.setRoomNumber(rs.getString("RoomNumber"));
+            room.setRoomDescription(rs.getString("RoomDescription"));
+            room.setRoomName(rs.getString("RoomName"));
+            room.setRoomAvailabilityStatus(rs.getString("RoomAvailabilityStatus"));
+            room.setRoomCapacity(rs.getInt("RoomCapacity"));
+        }
+
+        con.close();
+        return room;
+    }
 }

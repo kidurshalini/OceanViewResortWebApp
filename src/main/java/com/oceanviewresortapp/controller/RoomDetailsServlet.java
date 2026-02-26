@@ -27,10 +27,57 @@ public class RoomDetailsServlet extends HttpServlet {
 
         try {
             dao.insert(room);
-            response.sendRedirect("viewRooms.jsp");
+            response.sendRedirect("ViewRoomDetails.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().println("Error inserting room: " + e.getMessage());
         }
     }
+    protected void doPostUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+        RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
+
+        try {
+            if ("update".equals(action)) {
+                int roomId = Integer.parseInt(request.getParameter("roomId"));
+                String roomType = request.getParameter("roomType");
+                String roomNumber = request.getParameter("roomNumber");
+
+                RoomDetails room = new RoomDetails();
+                room.setRoomId(roomId);
+                room.setRoomType(roomType);
+                room.setRoomNumber(roomNumber);
+
+                dao.update(room); // DAO updates DB
+            }
+
+            response.sendRedirect("ViewRoomDetails.jsp"); // Back to list
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Handle GET → Delete
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+        RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
+
+        try {
+            if ("delete".equals(action)) {
+                int roomId = Integer.parseInt(request.getParameter("roomId"));
+                dao.delete(roomId); // DAO deletes DB
+            }
+
+            response.sendRedirect("ViewRoomDetails.jsp"); // Back to list
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+

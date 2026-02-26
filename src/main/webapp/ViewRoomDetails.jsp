@@ -70,12 +70,13 @@
                                     <%= r.getRoomCapacity() %>
                                 </span>
                         </td>
-                    </tr>
-                    <tr>
-                        <a href="EditRoom.jsp?roomId=<%= r.getRoomId() %>">Update</a>
+                    <td>
+                        <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>">Update</a>
                         <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete"
                            onclick="return confirm('Are you sure you want to delete this room?')"> Delete</a>
+                    </td>
                     </tr>
+
                     <%
                         }
                     %>
