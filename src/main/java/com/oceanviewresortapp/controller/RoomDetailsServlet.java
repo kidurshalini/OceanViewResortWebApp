@@ -44,11 +44,21 @@ public class RoomDetailsServlet extends HttpServlet {
                 int roomId = Integer.parseInt(request.getParameter("roomId"));
                 String roomType = request.getParameter("roomType");
                 String roomNumber = request.getParameter("roomNumber");
+                String roomName = request.getParameter("roomName");
+                String roomDescription = request.getParameter("roomDescription");
+                String roomAvailabilityStatus = request.getParameter("roomAvailabilityStatus");
+                int roomCapacity = Integer.parseInt(request.getParameter("roomCapacity"));
+
 
                 RoomDetails room = new RoomDetails();
                 room.setRoomId(roomId);
                 room.setRoomType(roomType);
                 room.setRoomNumber(roomNumber);
+                room.setRoomName(roomName);
+                room.setRoomDescription(roomDescription);
+                room.setRoomAvailabilityStatus(roomAvailabilityStatus);
+                room.setRoomCapacity(roomCapacity);
+
 
                 dao.update(room); // DAO updates DB
             }

@@ -50,7 +50,8 @@ public class RoomDetailsDAOImpl {
     }
     public void update(RoomDetails room) throws Exception {
         Connection con = DB_Connection.getConnection();
-        CallableStatement cs = con.prepareCall("{call sp_UpdateRoomDetails(?, ?, ?)}");
+        CallableStatement cs = con.prepareCall("{call sp_UpdateRoomDetails(?,?,?,?,?,?,?)}");
+
         cs.setInt(1, room.getRoomId());
         cs.setString(2, room.getRoomType());
         cs.setString(3, room.getRoomNumber());
@@ -59,10 +60,11 @@ public class RoomDetailsDAOImpl {
         cs.setString(6, room.getRoomAvailabilityStatus());
         cs.setInt(7, room.getRoomCapacity());
 
-        cs.execute();
+        cs.executeUpdate();
+
+        cs.close();
         con.close();
     }
-
     public void delete(int roomId) throws Exception {
         Connection con = DB_Connection.getConnection();
         CallableStatement cs = con.prepareCall("{call sp_DeleteRoom(?)}");
