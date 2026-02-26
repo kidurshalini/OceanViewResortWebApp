@@ -9,16 +9,14 @@
     <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <jsp:include page="Component/NavBar.jsp" />
 
 <form action="RoomDetailsServlet" method="post" class="container mt-4">
 
     <div class="card shadow">
-        <div class="card-header bg-dark text-white">
-            <h5 class="mb-0">Add Room Details</h5>
+        <div class="card-header bg-success text-white text-center">
+            <h2 class="mb-0">Room Details Form</h2>
         </div>
-
         <div class="card-body">
 
             <div class="mb-3">
