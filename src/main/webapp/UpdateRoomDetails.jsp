@@ -3,7 +3,7 @@
 <%
     int roomId = Integer.parseInt(request.getParameter("roomId"));
     RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
-    RoomDetails room = dao.getRoomDetailsById(roomId); // Get room from DB
+    RoomDetails room = dao.getRoomDetailsById(roomId); // Get room details from Ddatabase
 %>
 
 <html>
@@ -17,19 +17,28 @@
 </head>
 <body>
 
+<%--Roomdetails updating as post opperation --%>
 <form action="RoomDetailsServlet" method="post" class="container mt-4">
     <div class="card shadow">
         <div class="card-header bg-warning text-dark text-center">
             <h2 class="mb-0">Room Details Updating Form</h2>
         </div>
         <div class="card-body">
+
         <input type="hidden" name="roomId" value="<%= room.getRoomId() %>" />
+
 
             <div class="mb-3">
                 <label class="form-label">Room Type</label>
-                <input type="text" name="roomType" class="form-control" value="<%= room.getRoomType() %>">
+                <select name="roomType" class="form-control" required>
+                    <option value="" disabled>Select Room Type</option>
+                    <option value="Single" <%= "Single".equals(room.getRoomType()) ? "selected" : "" %>>Single</option>
+                    <option value="Double" <%= "Double".equals(room.getRoomType()) ? "selected" : "" %>>Double</option>
+                    <option value="Suite" <%= "Suite".equals(room.getRoomType()) ? "selected" : "" %>>Suite</option>
+                    <option value="Deluxe" <%= "Deluxe".equals(room.getRoomType()) ? "selected" : "" %>>Deluxe</option>
+                    <option value="Family" <%= "Family".equals(room.getRoomType()) ? "selected" : "" %>>Family</option>
+                </select>
             </div>
-
                 <div class="mb-3">
                 <label class="form-label">Room Number</label>
                 <input type="text" name="roomNumber" class="form-control" value="<%= room.getRoomNumber() %>">
@@ -42,15 +51,22 @@
 
             <div class="mb-3">
                 <label class="form-label">Room Name</label>
-                <input type="text" name="roomName" class="form-control" value="<%= room.getRoomName() %>" required>
+                <select name="roomName" class="form-control" required>
+                    <option value="" disabled>Select Room Name</option>
+                    <option value="Ocean View" <%= "Ocean View".equals(room.getRoomType()) ? "selected" : "" %>>Ocean View</option>
+                    <option value="Mountain View" <%= "Mountain View".equals(room.getRoomType()) ? "selected" : "" %>>Mountain View</option>
+                    <option value="Garden View" <%= "Garden View".equals(room.getRoomType()) ? "selected" : "" %>>Garden View</option>
+                    <option value="Presidential Suite" <%= "Presidential Suite".equals(room.getRoomType()) ? "selected" : "" %>>Presidential Suite</option>
+                    <option value="Deluxe Room" <%= "Deluxe Room".equals(room.getRoomType()) ? "selected" : "" %>>Deluxe Room</option>
+                </select>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Availability</label>
                 <select name="roomAvailabilityStatus" class="form-select" required>
                     <option value="">-- Select --</option>
-                    <option value="Available">Available</option>
-                    <option value="Not Available">Not Available</option>
+                    <option value="Available" <%= "Available".equals(room.getRoomAvailabilityStatus()) ? "selected" : "" %>>Available</option>
+                    <option value="Not Available" <%= "Not Available".equals(room.getRoomAvailabilityStatus()) ? "selected" : "" %>>Not Available</option>
                 </select>
             </div>
 

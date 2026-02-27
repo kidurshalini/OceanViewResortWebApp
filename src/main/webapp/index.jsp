@@ -14,7 +14,7 @@
 
 <header class="hero-section py-3">
 
-
+<%--Home page--%>
     <div class="container text-center">
         <h1 class="display-5 fw-bold">WelCome to Ocean View Resort!</h1>
         <p class="text-muted">Quick, easy, and efficient booking at your fingertips.</p>

@@ -9,8 +9,12 @@
     <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<%--Nav bar inserting--%>
 <jsp:include page="Component/NavBar.jsp" />
 
+
+<%--Roomdetails inserting as post opperation --%>
 <form action="RoomDetailsServlet" method="post" class="container mt-4">
 
     <div class="card shadow">
@@ -21,7 +25,14 @@
 
             <div class="mb-3">
                 <label class="form-label">Room Type</label>
-                <input type="text" name="roomType" class="form-control" required>
+                <select name="roomType" class="form-control" required>
+                    <option value="" disabled selected>Select Room Type</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Suite">Suite</option>
+                    <option value="Deluxe">Deluxe</option>
+                    <option value="Family">Family</option>
+                </select>
             </div>
 
             <div class="mb-3">
@@ -34,11 +45,18 @@
                 <textarea name="roomDescription" class="form-control" rows="3" required></textarea>
             </div>
 
+
             <div class="mb-3">
                 <label class="form-label">Room Name</label>
-                <input type="text" name="roomName" class="form-control" required>
+                <select name="roomName" class="form-control" required>
+                    <option value="" disabled>Select Room Name</option>
+                    <option value="Ocean View">Ocean View</option>
+                    <option value="Mountain View">Mountain View</option>
+                    <option value="Garden View">Garden View</option>
+                    <option value="Presidential Suite">Presidential Suite</option>
+                    <option value="Deluxe Room">Deluxe Room</option>
+                </select>
             </div>
-
             <div class="mb-3">
                 <label class="form-label">Availability</label>
                 <select name="roomAvailabilityStatus" class="form-select" required>

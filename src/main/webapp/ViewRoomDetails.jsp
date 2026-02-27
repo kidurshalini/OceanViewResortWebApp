@@ -1,6 +1,16 @@
 <%@ page import="java.util.*,com.oceanviewresortapp.DAO.*,com.oceanviewresortapp.model.*" %>
 
 <%
+    String msg = request.getParameter("msg"); // read message from URL
+    if (msg != null) {
+%>
+<script>
+    alert("<%= msg %>");
+</script>
+<%
+    }
+%>
+<%
     RoomDetailsDAOImpl R1 = new RoomDetailsDAOImpl();
     List<RoomDetails> rooms = R1.getAll();
 %>
@@ -16,8 +26,10 @@
 </head>
 <body>
 
+<%--Nav bar inserting--%>
 <jsp:include page="Component/NavBar.jsp" />
 
+<%--Roomdetails view as a table with action--%>
 <div class="container mt-4">
 
     <div class="card shadow">

@@ -3,18 +3,20 @@ import java.time.LocalDateTime;
 
 public class RoomDetails {
 
-        private int roomId;                       // RoomId in DB
-        private String roomType;                  // RoomType
-        private String roomNumber;                // RoomNumber
-        private String roomDescription;           // RoomDescription
-        private String roomName;                  // RoomName
-        private String roomAvailabilityStatus;   // RoomAvailablityStatus
-        private int roomCapacity;                 // RoomCapacity
-        private LocalDateTime createdOn;          // CreatedOn
-        private LocalDateTime modifiedOn;         // ModifiedOn
+        private int roomId;
+        private String roomType;
+        private String roomNumber;
+        private String roomDescription;
+        private String roomName;
+        private String roomAvailabilityStatus;
+        private int roomCapacity;
+        private LocalDateTime createdOn;
+        private LocalDateTime modifiedOn;
 
         // Default constructor
-        public RoomDetails() {}
+        public RoomDetails() {
+
+        }
 
         // Constructor without ID (for creating new rooms)
         public RoomDetails(String roomType, String roomNumber, String roomDescription,
