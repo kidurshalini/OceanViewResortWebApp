@@ -21,8 +21,10 @@
     <div class="alert alert-info"><%= msg %></div>
     <% } %>
 
-    <form action="UpdateUserServlet" method="post">
+    <form action="UserServlet" method="post">
+        <input type="hidden" name="action" value="update">
         <input type="hidden" name="userId" value="<%= user.getUserId() %>">
+
         <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
             <input type="text" class="form-control" id="fullName" name="fullName"
@@ -32,6 +34,16 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email"
                    value="<%= user.getEmail() %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="contact" class="form-label">Contact</label>
+            <input type="text" class="form-control" id="contact" name="contact"
+                   value="<%= user.getContact() %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="idnumber" class="form-label">Id Number</label>
+            <input type="text" class="form-control" id="idnumber" name="idnumber"
+                   value="<%= user.getIdNumber() %>" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>

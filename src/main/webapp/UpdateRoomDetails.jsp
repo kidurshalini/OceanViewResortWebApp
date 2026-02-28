@@ -76,7 +76,7 @@
         </div>
 
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-warning" name="action" value="update">
+                <button type="submit" class="btn btn-warning">
                     <i class="bi bi-plus-circle me-1"></i>
                     Update Room
                 </button>
