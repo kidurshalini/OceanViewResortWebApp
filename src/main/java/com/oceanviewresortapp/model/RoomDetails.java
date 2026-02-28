@@ -1,5 +1,6 @@
 package com.oceanviewresortapp.model;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RoomDetails {
 
@@ -13,6 +14,7 @@ public class RoomDetails {
         private LocalDateTime createdOn;
         private LocalDateTime modifiedOn;
 
+    private List<RoomPriceDetails> priceDetailsList;
         // Default constructor
         public RoomDetails() {
 
@@ -116,5 +118,6 @@ public class RoomDetails {
             this.modifiedOn = modifiedOn;
         }
 
-    }
+
+}
 

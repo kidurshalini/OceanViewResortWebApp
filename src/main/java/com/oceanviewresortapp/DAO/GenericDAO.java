@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface GenericDAO<T, U>{
 
-    void insert(T obj1, U obj2) throws Exception;
+    void insert(T obj, U obj1) throws Exception;
 
     void update(T obj) throws Exception;
 

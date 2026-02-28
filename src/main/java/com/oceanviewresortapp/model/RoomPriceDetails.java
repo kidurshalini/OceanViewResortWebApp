@@ -1,29 +1,29 @@
 package com.oceanviewresortapp.model;
 
+import java.math.BigDecimal;
+
 public class RoomPriceDetails {
 
     private int RoomPriceDetailsId;
     private int roomDetailsId;
     private String Currency;
-    private int PerNightPrice;
+    private BigDecimal PerNightPrice;
 
 //    default Constructor
     public RoomPriceDetails() {
     }
 
 //    constructor with id
-    public RoomPriceDetails(int RoomPriceDetailsId, int roomId, String Currency, int PerNightPrice) {
+    public RoomPriceDetails(int RoomPriceDetailsId, int roomDetailsId, String Currency, BigDecimal PerNightPrice) {
         this.RoomPriceDetailsId = RoomPriceDetailsId;
-        this.roomDetailsId = roomId;
+        this.roomDetailsId = roomDetailsId;
         this.Currency = Currency;
         this.PerNightPrice = PerNightPrice;
 
     }
 
     //   constructor without id
-    public RoomPriceDetails(int roomDetailsId, String Currency, int PerNightPrice) {
-        this.RoomPriceDetailsId = RoomPriceDetailsId;
-        this.roomDetailsId = roomDetailsId;
+    public RoomPriceDetails(String Currency, BigDecimal PerNightPrice) {
         this.Currency = Currency;
         this.PerNightPrice = PerNightPrice;
     }
@@ -49,11 +49,8 @@ public class RoomPriceDetails {
     public void setCurrency(String Currency) {
         this.Currency = Currency;
     }
-    public int getPerNightPrice() {
+    public BigDecimal getPerNightPrice() {
         return PerNightPrice;
-    }
-    public void setPerNightPrice(int PerNightPrice) {
-        this.PerNightPrice = PerNightPrice;
     }
 
 

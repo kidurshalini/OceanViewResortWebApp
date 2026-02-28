@@ -26,10 +26,9 @@
 </head>
 <body>
 
-<%--Nav bar inserting--%>
+
 <jsp:include page="Component/NavBar.jsp" />
 
-<%--Roomdetails view as a table with action--%>
 <div class="container mt-4">
 
     <div class="card shadow">
@@ -49,6 +48,8 @@
                         <th>Description</th>
                         <th>Status</th>
                         <th>Capacity</th>
+                        <th> Price</th>
+
                         <th>Action</th>
                     </tr>
                     </thead>

@@ -17,7 +17,6 @@
 </head>
 <body>
 
-<%--Roomdetails updating as post opperation --%>
 <form action="RoomDetailsServlet" method="post" class="container mt-4">
     <div class="card shadow">
         <div class="card-header bg-warning text-dark text-center">

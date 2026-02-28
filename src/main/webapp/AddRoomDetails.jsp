@@ -13,8 +13,6 @@
 <%--Nav bar inserting--%>
 <jsp:include page="Component/NavBar.jsp" />
 
-
-<%--Roomdetails inserting as post opperation --%>
 <form action="RoomDetailsServlet" method="post" class="container mt-4">
 
     <div class="card shadow">
@@ -69,6 +67,20 @@
             <div class="mb-3">
                 <label class="form-label">Capacity</label>
                 <input type="number" name="roomCapacity" class="form-control" min="1" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Currency</label>
+                <select name="Currency" class="form-control" required>
+                    <option value="">-- Select Currency --</option>
+                    <option value="LKR">LKR</option>
+                    <option value="USD">USD</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">PerNightPrice</label>
+                <input type="text" name="PerNightPrice" class="form-control" required>
             </div>
 
         </div>
