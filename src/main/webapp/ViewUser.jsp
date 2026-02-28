@@ -36,7 +36,6 @@
             <th>Full Name</th>
             <th>Email</th>
             <th>Contact</th>
-
             <th>Id number</th>
             <th>Role</th>
             <th>Password</th>

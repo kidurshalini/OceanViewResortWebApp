@@ -102,4 +102,29 @@ public class UserDAOImpl implements GenericDAO<User> {
         con.close();
         return user;
     }
+
+    public User authenticateUser(String email, String password) throws Exception {
+        User user = null;
+        Connection con = DB_Connection.getConnection();
+        CallableStatement cs = con.prepareCall("{call sp_AuthenticateUser(?,?)}");
+
+        cs.setString(1, email);
+        cs.setString(2, password); // in production, hash first
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()) {
+            user = new User(
+                    rs.getInt("UserId"),
+                    rs.getString("FullName"),
+                    rs.getString("Email"),
+                    rs.getString("Password"),
+                    rs.getString("Role"),
+                    rs.getBoolean("IsActive"),
+                    rs.getString("Contact"),
+                    rs.getString("IdNumber")
+            );
+        }
+        con.close();
+        return user;
+    }
 }
