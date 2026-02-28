@@ -30,6 +30,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="ViewUser.jsp">
+                        <i class="bi bi-calendar-check-fill me-2"></i>
+                        View User
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
