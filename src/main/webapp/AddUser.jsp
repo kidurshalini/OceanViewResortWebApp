@@ -21,7 +21,7 @@
     <div class="alert alert-info"><%= msg %></div>
     <% } %>
 
-    <form action="AddUserServlet" method="post">
+    <form action="UserServlet" method="post">
         <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
             <input type="text" class="form-control" id="fullName" name="fullName" required>
@@ -29,6 +29,14 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="contact" class="form-label">Contact</label>
+            <input type="text" class="form-control" id="contact" name="contact" required>
+        </div>
+        <div class="mb-3">
+            <label for="contact" class="form-label">Id Number</label>
+            <input type="text" class="form-control" id="idnumber" name="idnumber" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -41,11 +49,14 @@
                 <option value="STAFF">Staff</option>
             </select>
         </div>
+
+
+
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="isActive" name="isActive" checked>
             <label class="form-check-label" for="isActive">Active</label>
         </div>
-        <button type="submit" class="btn btn-primary">Add User</button>
+        <button type="submit" class="btn btn-primary"  name="action" value="add">Add User</button>
     </form>
 </div>
 </body>
