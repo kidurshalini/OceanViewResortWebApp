@@ -14,7 +14,10 @@ import java.util.List;
 
 public class RoomDetailsDAOImpl implements RoomDetailsDAO {
 
-    //insert room and price details
+    public void insert(RoomDetails room) throws Exception {
+    }
+        //insert room and price details
+
     public void insert(RoomDetails room, RoomPriceDetails price) throws Exception {
         // get connection
         try (Connection con = DB_Connection.getConnection()) {
@@ -97,13 +100,13 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
 
             // Update room
             CallableStatement csRoom = con.prepareCall("{call sp_UpdateRoomDetails(?,?,?,?,?,?,?)}");
-            csRoom.setString(1, room.getRoomType());
-            csRoom.setString(2, room.getRoomNumber());
-            csRoom.setString(3, room.getRoomDescription());
-            csRoom.setString(4, room.getRoomName());
-            csRoom.setString(5, room.getRoomAvailabilityStatus());
-            csRoom.setInt(6, room.getRoomCapacity());
-            csRoom.setInt(7, room.getRoomId()); // for update
+            csRoom.setInt(1, room.getRoomId());
+            csRoom.setString(2, room.getRoomType());
+            csRoom.setString(3, room.getRoomNumber());
+            csRoom.setString(4, room.getRoomDescription());
+            csRoom.setString(5, room.getRoomName());
+            csRoom.setString(6, room.getRoomAvailabilityStatus());
+            csRoom.setInt(7, room.getRoomCapacity());
 
             csRoom.executeUpdate();
 

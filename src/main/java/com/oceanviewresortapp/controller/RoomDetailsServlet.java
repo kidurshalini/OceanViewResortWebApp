@@ -27,11 +27,9 @@ public class RoomDetailsServlet extends HttpServlet {
             String roomName = request.getParameter("roomName");
             String roomAvailabilityStatus = request.getParameter("roomAvailabilityStatus");
             int roomCapacity = Integer.parseInt(request.getParameter("roomCapacity"));
-            String Currency = request.getParameter("Currency");
-            BigDecimal PerNightPrice = new BigDecimal(request.getParameter("PerNightPrice"));
+            int roomId = Integer.parseInt(request.getParameter("roomId"));
 
             if ("update".equals(action)) {
-                int roomId = Integer.parseInt(request.getParameter("roomId"));
 
                 RoomDetails room = new RoomDetails();
                 room.setRoomId(roomId);
@@ -46,6 +44,9 @@ public class RoomDetailsServlet extends HttpServlet {
                 msg = "Room details updated successfully!";
             } else {
                 // Insert
+                String Currency = request.getParameter("Currency");
+                BigDecimal PerNightPrice = new BigDecimal(request.getParameter("PerNightPrice"));
+
                 RoomDetails room = new RoomDetails(roomType, roomNumber, roomDescription, roomName, roomAvailabilityStatus, roomCapacity);
                 RoomPriceDetails price = new RoomPriceDetails(Currency, PerNightPrice);
 

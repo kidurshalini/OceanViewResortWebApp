@@ -30,14 +30,17 @@ public class RoomPriceDetails {
 
     //getters and setters
     public int getRoomPriceDetailsId() {
+
         return RoomPriceDetailsId;
     }
 
     public void setRoomPriceDetailsId(int RoomPriceDetailsId) {
+
         this.RoomPriceDetailsId = RoomPriceDetailsId;
     }
 
     public int getRoomDetailsId() {
+
         return roomDetailsId;
     }
     public void setRoomDetailsId(int roomDetailsId) {

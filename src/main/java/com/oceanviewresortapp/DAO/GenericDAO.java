@@ -2,9 +2,9 @@ package com.oceanviewresortapp.DAO;
 
 import java.util.List;
 
-public interface GenericDAO<T, U>{
+public interface GenericDAO<T>{
 
-    void insert(T obj, U obj1) throws Exception;
+    void insert(T obj) throws Exception;
 
     void update(T obj) throws Exception;
 

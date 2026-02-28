@@ -52,11 +52,11 @@
                 <label class="form-label">Room Name</label>
                 <select name="roomName" class="form-control" required>
                     <option value="" disabled>Select Room Name</option>
-                    <option value="Ocean View" <%= "Ocean View".equals(room.getRoomType()) ? "selected" : "" %>>Ocean View</option>
-                    <option value="Mountain View" <%= "Mountain View".equals(room.getRoomType()) ? "selected" : "" %>>Mountain View</option>
-                    <option value="Garden View" <%= "Garden View".equals(room.getRoomType()) ? "selected" : "" %>>Garden View</option>
-                    <option value="Presidential Suite" <%= "Presidential Suite".equals(room.getRoomType()) ? "selected" : "" %>>Presidential Suite</option>
-                    <option value="Deluxe Room" <%= "Deluxe Room".equals(room.getRoomType()) ? "selected" : "" %>>Deluxe Room</option>
+                    <option value="Ocean View" <%= "Ocean View".equals(room.getRoomName()) ? "selected" : "" %>>Ocean View</option>
+                    <option value="Mountain View" <%= "Mountain View".equals(room.getRoomName()) ? "selected" : "" %>>Mountain View</option>
+                    <option value="Garden View" <%= "Garden View".equals(room.getRoomName()) ? "selected" : "" %>>Garden View</option>
+                    <option value="Presidential Suite" <%= "Presidential Suite".equals(room.getRoomName()) ? "selected" : "" %>>Presidential Suite</option>
+                    <option value="Deluxe Room" <%= "Deluxe Room".equals(room.getRoomName()) ? "selected" : "" %>>Deluxe Room</option>
                 </select>
             </div>
 
