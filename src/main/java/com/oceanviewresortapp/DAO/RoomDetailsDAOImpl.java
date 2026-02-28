@@ -137,7 +137,6 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
         ResultSet rs = cs.executeQuery();
 
         RoomDetails room = null;
-        List<RoomPriceDetails> priceList = new ArrayList<>(); // list to hold all prices
 
         while (rs.next()) { // use while in case there are multiple price rows
             if (room == null) {

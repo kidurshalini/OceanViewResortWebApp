@@ -28,7 +28,7 @@ public class UserDAOImpl implements GenericDAO<User> {
     @Override
     public void update(User user) throws Exception {
         Connection con = DB_Connection.getConnection();
-        CallableStatement cs = con.prepareCall("{call sp_UpdateUser(?,?,?,?,?,?,?)}");
+        CallableStatement cs = con.prepareCall("{call sp_UpdateUser(?,?,?,?,?,?,?,?)}");
 
         cs.setInt(1, user.getUserId());
         cs.setString(2, user.getFullName());
@@ -43,10 +43,10 @@ public class UserDAOImpl implements GenericDAO<User> {
     }
 
     @Override
+
     public void delete(int id) throws Exception {
         Connection con = DB_Connection.getConnection();
         CallableStatement cs = con.prepareCall("{call sp_DeleteUser(?)}");
-
         cs.setInt(1, id);
         cs.execute();
         con.close();
@@ -68,8 +68,8 @@ public class UserDAOImpl implements GenericDAO<User> {
                     rs.getString("Password"),
                     rs.getString("Role"),
                     rs.getBoolean("IsActive"),
-                    rs.getString("contact"),
-                    rs.getString("idNumber")
+                    rs.getString("Contact"),
+                    rs.getString("IdNumber")
             );
             users.add(user);
         }
@@ -94,8 +94,9 @@ public class UserDAOImpl implements GenericDAO<User> {
                     rs.getString("Password"),
                     rs.getString("Role"),
                     rs.getBoolean("IsActive"),
-                    rs.getString("contact"),
-                    rs.getString("idNumber")
+                    rs.getString("Contact"),
+                    rs.getString("IdNumber")
+
             );
         }
         con.close();

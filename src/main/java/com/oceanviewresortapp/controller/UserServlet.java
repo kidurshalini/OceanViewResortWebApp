@@ -61,9 +61,5 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // For delete link
-        doPost(request, response);
-    }
+
 }

@@ -8,28 +8,37 @@ public class User
     private String password;
     private String role;
     private boolean isActive;
+    private String Contact;
+    private String IdNumber;
     //defult constractor
     public User() {
     }
 
     // constractor  with id
-    public User(int userId, String fullName, String email, String password, String role,boolean isActive) {
+    public User(int userId, String fullName, String email, String password, String role,
+                boolean isActive,String Contact,  String IdNumber) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
         this.isActive = isActive;
+        this.Contact = Contact;
+        this.IdNumber = IdNumber;
+
     }
 
     // constractor  without id
-    public User(String fullName, String email, String password, String role,boolean isActive) {
+    public User(String fullName, String email, String password, String role,
+                boolean isActive,String Contact,  String IdNumber) {
 
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
         this.isActive = isActive;
+        this.Contact = Contact;
+        this.IdNumber = IdNumber;
     }
 
     // Getters and Setters
@@ -59,6 +68,7 @@ public class User
         this.password = password;
     }
 
+
     public String getRole() {
         return role;
     }
@@ -71,6 +81,20 @@ public class User
     }
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getContact() {
+        return Contact;
+    }
+    public void setContact(String contact) {
+        Contact = contact;
+    }
+
+    public String getIdNumber() {
+        return IdNumber;
+    }
+    public void setIdNumber(String idNumber) {
+        IdNumber = idNumber;
     }
 
 }
