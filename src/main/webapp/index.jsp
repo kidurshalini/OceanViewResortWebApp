@@ -35,7 +35,7 @@
         <p class="lead text-muted">Quick, easy, and efficient booking at your fingertips.</p>
 
         <% if (user != null) { %>
-        <a href="AddRoomDetails.jsp" class="btn btn-primary btn-lg mt-3">Book Now</a>
+        <a href="ViewRoomDetails.jsp" class="btn btn-primary btn-lg mt-3">View Available Rooms</a>
         <% } else { %>
         <a href="Login.jsp" class="btn btn-primary btn-lg mt-3">Login to Book</a>
         <% } %>

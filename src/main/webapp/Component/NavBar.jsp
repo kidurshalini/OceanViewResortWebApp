@@ -98,7 +98,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="AddRoomDetails.jsp"><i class="bi bi-door-open"></i> Room Booking</a>
+                    <a class="nav-link" href="AddRoomDetails.jsp">
+                        <i class="bi bi-door-open"></i>Add RoomDetails</a>
                 </li>
 
                 <li class="nav-item">
