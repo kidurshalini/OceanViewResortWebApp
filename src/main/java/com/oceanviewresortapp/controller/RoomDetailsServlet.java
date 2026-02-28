@@ -21,15 +21,19 @@ public class RoomDetailsServlet extends HttpServlet {
         RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
 
         try {
+            // Common room fields
             String roomType = request.getParameter("roomType");
             String roomNumber = request.getParameter("roomNumber");
             String roomDescription = request.getParameter("roomDescription");
             String roomName = request.getParameter("roomName");
             String roomAvailabilityStatus = request.getParameter("roomAvailabilityStatus");
-            int roomCapacity = Integer.parseInt(request.getParameter("roomCapacity"));
-            int roomId = Integer.parseInt(request.getParameter("roomId"));
+            String roomCapacityStr = request.getParameter("roomCapacity");
 
-            if ("update".equals(action)) {
+         int roomCapacity = Integer.parseInt(roomCapacityStr);
+
+            if("update".equals(action)) {
+                // --- UPDATE ROOM ONLY ---
+                int roomId = Integer.parseInt(request.getParameter("roomId"));
 
                 RoomDetails room = new RoomDetails();
                 room.setRoomId(roomId);
@@ -40,23 +44,40 @@ public class RoomDetailsServlet extends HttpServlet {
                 room.setRoomAvailabilityStatus(roomAvailabilityStatus);
                 room.setRoomCapacity(roomCapacity);
 
-                dao.update(room);
+                dao.update(room); // ✅ Only room, ignore price/currency
                 msg = "Room details updated successfully!";
+
             } else {
-                // Insert
-                String Currency = request.getParameter("Currency");
-                BigDecimal PerNightPrice = new BigDecimal(request.getParameter("PerNightPrice"));
+                // --- INSERT ROOM + PRICE ---
+                String currency = request.getParameter("Currency");
+                String priceStr = request.getParameter("PerNightPrice");
+
+                if(currency == null || currency.isEmpty() ||
+                        priceStr == null || priceStr.isEmpty()) {
+                    msg = "Insert failed! Please fill in currency and price.";
+                    response.sendRedirect("ViewRoomDetails.jsp?msg=" + java.net.URLEncoder.encode(msg, "UTF-8"));
+                    return;
+                }
+
+                BigDecimal perNightPrice;
+                try {
+                    perNightPrice = new BigDecimal(priceStr);
+                } catch(NumberFormatException e) {
+                    msg = "Insert failed! Price must be a valid number.";
+                    response.sendRedirect("ViewRoomDetails.jsp?msg=" + java.net.URLEncoder.encode(msg, "UTF-8"));
+                    return;
+                }
 
                 RoomDetails room = new RoomDetails(roomType, roomNumber, roomDescription, roomName, roomAvailabilityStatus, roomCapacity);
-                RoomPriceDetails price = new RoomPriceDetails(Currency, PerNightPrice);
+                RoomPriceDetails price = new RoomPriceDetails(currency, perNightPrice);
 
-                dao.insert(room, price);
+                dao.insert(room, price); // ✅ Insert room + price
                 msg = "Room details inserted successfully!";
             }
 
             response.sendRedirect("ViewRoomDetails.jsp?msg=" + java.net.URLEncoder.encode(msg, "UTF-8"));
 
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             msg = "Operation failed! " + e.getMessage();
             response.sendRedirect("ViewRoomDetails.jsp?msg=" + java.net.URLEncoder.encode(msg, "UTF-8"));

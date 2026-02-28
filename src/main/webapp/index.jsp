@@ -6,13 +6,12 @@
 <html>
 <head>
     <title>Home | Ocean View Resort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero-section {
-            background: url('images/hero-bg.jpg') center/cover no-repeat;
-        }
+
         .carousel-inner img {
             height: 400px;
             object-fit: cover;
@@ -40,10 +39,11 @@
         <% } else { %>
         <a href="Login.jsp" class="btn btn-primary btn-lg mt-3">Login to Book</a>
         <% } %>
+
     </div>
 </header>
 
-<!-- Photo Slideshow -->
+
 <div id="resortCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#resortCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
@@ -52,13 +52,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="Component/images/image1.jfif" class="d-block w-100" alt="Ocean View">
+            <img src="Component/images/image1.webp" class="d-block w-100" alt="Ocean View">
         </div>
         <div class="carousel-item">
-            <img src="Component/images/image1.jfif" class="d-block w-100" alt="Luxury Room">
+            <img src="Component/images/image2.avif" class="d-block w-100" alt="Luxury Room">
         </div>
         <div class="carousel-item">
-            <img src="Component/images/image1.jfif" class="d-block w-100" alt="Resort Pool">
+            <img src="Component/images/image3.jpg" class="d-block w-100" alt="Resort Pool">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#resortCarousel" data-bs-slide="prev">
@@ -71,7 +71,7 @@
     </button>
 </div>
 
-<!-- About Us Section -->
+
 <section class="about-us text-center">
     <div class="container">
         <h2>About Us</h2>

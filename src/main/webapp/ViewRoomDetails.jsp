@@ -32,7 +32,7 @@
 <div class="container mt-4">
 
     <div class="card shadow">
-        <div class="card-header bg-dark text-white">
+        <div class="card-header bg-secondary text-white">
             <h5 class="mb-0">Room Details</h5>
         </div>
 
@@ -48,7 +48,6 @@
                         <th>Description</th>
                         <th>Status</th>
                         <th>Capacity</th>
-                        <th> Price</th>
 
                         <th>Action</th>
                     </tr>
@@ -83,11 +82,17 @@
                                     <%= r.getRoomCapacity() %>
                                 </span>
                         </td>
-                    <td>
-                        <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>">Update</a>
-                        <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete"
-                           onclick="return confirm('Are you sure you want to delete this room?')"> Delete</a>
-                    </td>
+                        <td>
+                            <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>"
+                               class="btn btn-sm btn-warning me-2">
+                                <i class="bi bi-pencil-square"></i> Update
+                            </a>
+                            <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this room?')">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
                     </tr>
 
                     <%

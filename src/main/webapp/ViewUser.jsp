@@ -13,7 +13,11 @@
 <html>
 <head>
     <title>View Users</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -53,16 +57,24 @@
             <td><%= user.getIdNumber() %></td>
             <td><%= user.getPassword() %></td>
             <td><%= user.getRole() %></td>
-            <td>
-                <%= user.isIsActive() ? "Active" : "Inactive" %>
+            <td class="text-center">
+                <% if (user.isIsActive()) { %>
+                <span class="badge bg-success">
+            <i class="bi bi-check-circle me-1"></i> Active
+        </span>
+                <% } else { %>
+                <span class="badge bg-danger">
+            <i class="bi bi-x-circle me-1"></i> Inactive
+        </span>
+                <% } %>
             </td>
             <td>
                 <a href="UpdateUser.jsp?action=update&userId=<%= user.getUserId()%>"
                    class="btn btn-warning btn-sm">
-                    Edit
+                    <i class="bi bi-pencil-square"></i> Update
                 </a>
                 <button class="btn btn-sm btn-danger delete-btn" data-userid="<%= user.getUserId() %>">
-                    Delete
+                    <i class="bi bi-trash"></i>  Delete
                 </button>
             </td>
         </tr>

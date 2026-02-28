@@ -75,15 +75,15 @@
             </div>
         </div>
 
-            <div class="card-footer text-end">
-                <button type="submit" class="btn btn-warning">
-                    <i class="bi bi-plus-circle me-1"></i>
-                    Update Room
-                </button>
-                <button type="reset" class="btn btn-secondary ms-2">
-                    Reset
-                </button>
-            </div>
+        <div class="card-footer text-end">
+            <button type="submit" name="action" value="update" class="btn btn-warning">
+                <i class="bi bi-plus-circle me-1"></i>
+                Update Room
+            </button>
+            <button type="reset" class="btn btn-secondary ms-2">
+                Reset
+            </button>
+        </div>
         </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
