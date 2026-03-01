@@ -88,9 +88,12 @@
                                 <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-warning me-2">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                <a href="UpdatePrice.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-info me-2">
-                                    <i class="bi bi-cash-coin"></i> Edit Price
+                                <a href="ViewRoomDetailsList.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-warning me-2">
+                                    <i class="bi bi-eye"></i>  View
                                 </a>
+                               <a href="UpdatePrice.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-info me-2">
+                                    <i class="bi bi-cash-coin"></i> Edit Price
+                              </a>
                                 <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete" class="btn btn-sm btn-danger"
                                    onclick="return confirm('Are you sure you want to delete this room?')">
                                     <i class="bi bi-trash"></i> Delete
