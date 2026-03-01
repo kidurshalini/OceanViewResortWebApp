@@ -3,7 +3,7 @@
 <%
     int roomId = Integer.parseInt(request.getParameter("roomId"));
     RoomDetailsDAOImpl dao = new RoomDetailsDAOImpl();
-    RoomDetails room = dao.getRoomDetailsById(roomId); // Get room details from Ddatabase
+    RoomDetails room = dao.getRoomDetailsById(roomId);
 %>
 
 <html>

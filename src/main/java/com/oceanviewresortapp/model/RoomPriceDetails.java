@@ -7,25 +7,25 @@ public class RoomPriceDetails {
     private int RoomPriceDetailsId;
     private int roomDetailsId;
     private String Currency;
-    private BigDecimal PerNightPrice;
+    private BigDecimal PricePerNight;
 
 //    default Constructor
     public RoomPriceDetails() {
     }
 
 //    constructor with id
-    public RoomPriceDetails(int RoomPriceDetailsId, int roomDetailsId, String Currency, BigDecimal PerNightPrice) {
+    public RoomPriceDetails(int RoomPriceDetailsId, int roomDetailsId, String Currency, BigDecimal PricePerNight) {
         this.RoomPriceDetailsId = RoomPriceDetailsId;
         this.roomDetailsId = roomDetailsId;
         this.Currency = Currency;
-        this.PerNightPrice = PerNightPrice;
+        this.PricePerNight = PricePerNight;
 
     }
 
     //   constructor without id
-    public RoomPriceDetails(String Currency, BigDecimal PerNightPrice) {
+    public RoomPriceDetails(String Currency, BigDecimal PricePerNight) {
         this.Currency = Currency;
-        this.PerNightPrice = PerNightPrice;
+        this.PricePerNight = PricePerNight;
     }
 
     //getters and setters
@@ -52,9 +52,13 @@ public class RoomPriceDetails {
     public void setCurrency(String Currency) {
         this.Currency = Currency;
     }
-    public BigDecimal getPerNightPrice() {
-        return PerNightPrice;
+    public BigDecimal getPricePerNight() {
+        return PricePerNight;
     }
+    public void setPricePerNight(BigDecimal PricePerNight) {
+        this.PricePerNight = PricePerNight;
+    }
+
 
 
 

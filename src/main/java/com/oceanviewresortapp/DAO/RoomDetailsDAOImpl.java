@@ -3,6 +3,8 @@ package com.oceanviewresortapp.DAO;
 import com.oceanviewresortapp.model.RoomDetails;
 import com.oceanviewresortapp.model.RoomPriceDetails;
 import com.oceanviewresortapp.util.DB_Connection;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -48,11 +50,11 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
                 // --- Insert RoomPriceDetails ---
                 csPrice.setInt(1, price.getRoomDetailsId());
                 csPrice.setString(2, price.getCurrency());
-                csPrice.setBigDecimal(3, price.getPerNightPrice());
+                csPrice.setBigDecimal(3, price.getPricePerNight());
 
                 csPrice.executeUpdate();
                 System.out.println("Inserting Room: " + room.getRoomType() + ", " + room.getRoomNumber());
-                System.out.println("Inserting Price: " + price.getCurrency() + ", " + price.getPerNightPrice());
+                System.out.println("Inserting Price: " + price.getCurrency() + ", " + price.getPricePerNight());
                 System.out.println("RoomDetailsId = " + room.getRoomId());
 
                 con.commit();
@@ -138,7 +140,7 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
 
         RoomDetails room = null;
 
-        while (rs.next()) { // use while in case there are multiple price rows
+        while (rs.next()) {
             if (room == null) {
                 // Set room details only once
                 room = new RoomDetails();
@@ -160,5 +162,52 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
         con.close();
 
         return room;
+    }
+    public RoomPriceDetails getPriceByRoomId(int roomDetailsId) throws Exception {
+        RoomPriceDetails price = null;
+
+        try (Connection con = DB_Connection.getConnection();
+             CallableStatement cs = con.prepareCall("{call sp_GetRoomPriceDetailsByRoomId(?)}")) {
+
+            cs.setInt(1, roomDetailsId);
+
+            try (ResultSet rs = cs.executeQuery()) {
+                if (rs.next()) {
+                    price = new RoomPriceDetails();
+                    price.setRoomPriceDetailsId(rs.getInt("RoomPriceDetailsId"));
+                    price.setRoomDetailsId(rs.getInt("RoomDetailsId"));
+                    price.setCurrency(rs.getString("Currency"));
+
+                    // Force conversion to BigDecimal for any numeric type
+                    Object val = rs.getObject("PricePerNight");
+                    if (val != null) {
+                        price.setPricePerNight(new BigDecimal(val.toString()));
+                        System.out.println("DEBUG: RoomId=" + roomDetailsId + ", Price=" + price.getPricePerNight());
+                    } else {
+                        System.out.println("DEBUG: PricePerNight is null for RoomId=" + roomDetailsId);
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return price;
+    }
+
+    public void updatePrice(@NotNull RoomPriceDetails price) throws Exception {
+        String sql = "{call sp_UpdateRoomPriceDetails(?,?,?,?)}";
+        try (Connection con = DB_Connection.getConnection();
+             CallableStatement cs = con.prepareCall(sql)) {
+
+            cs.setInt(1, price.getRoomPriceDetailsId()); // primary key
+            cs.setInt(2, price.getRoomDetailsId());
+            cs.setString(3, price.getCurrency());
+            cs.setBigDecimal(4, price.getPricePerNight());
+
+            cs.executeUpdate();
+        }
+
     }
 }

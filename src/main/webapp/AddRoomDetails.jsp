@@ -14,7 +14,7 @@
 
     <div class="card shadow-lg">
 
-        <!-- Header -->
+
         <div class="card-header bg-secondary text-white text-center">
             <h2 class="mb-0">
                 <i class="bi bi-building me-2"></i>
@@ -22,10 +22,10 @@
             </h2>
         </div>
 
-        <!-- Body -->
+
         <div class="card-body">
 
-            <!-- Room Type -->
+
             <div class="mb-3">
                 <label class="form-label">Room Type</label>
                 <select name="roomType" class="form-select" required>
@@ -38,19 +38,19 @@
                 </select>
             </div>
 
-            <!-- Room Number -->
+
             <div class="mb-3">
                 <label class="form-label">Room Number</label>
                 <input type="text" name="roomNumber" class="form-control" required>
             </div>
 
-            <!-- Description -->
+
             <div class="mb-3">
                 <label class="form-label">Room Description</label>
                 <textarea name="roomDescription" class="form-control" rows="3" required></textarea>
             </div>
 
-            <!-- Room Name -->
+
             <div class="mb-3">
                 <label class="form-label">Room Name</label>
                 <select name="roomName" class="form-select" required>
@@ -63,7 +63,7 @@
                 </select>
             </div>
 
-            <!-- Capacity + Availability -->
+
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Capacity</label>
@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <!-- Currency + Price -->
+
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Currency</label>
@@ -93,7 +93,7 @@
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Price per Night</label>
-                    <input type="number" name="PerNightPrice" class="form-control" required>
+                    <input type="number" name="PricePerNight" class="form-control" required>
                 </div>
             </div>
 
