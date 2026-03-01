@@ -105,6 +105,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="ViewRoomDetails.jsp"><i class="bi bi-calendar-check"></i> View Rooms</a>
                 </li>
+         <li class="nav-item">
+           a class="nav-link" href="ViewGuestReservations.jsp"><i class="bi bi-calendar-check"></i> Reservation Details</a>
+          </li>
 
                 <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
                 <li class="nav-item">
