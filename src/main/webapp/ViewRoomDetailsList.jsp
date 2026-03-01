@@ -50,6 +50,7 @@
         Room not found!
     </div>
 <% } else { %>
+    <!-- Room Details Card -->
     <div class="card shadow mb-4">
         <div class="card-header bg-secondary text-white text-center">
             <h4 class="mb-0">Room Details</h4>
@@ -100,13 +101,13 @@
         </div>
     </div>
 
+    <!-- Buttons for New Guest & Existing Guest -->
     <div class="text-center my-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">
-            Book Now
-        </button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#oldGuestModal">Book for Existing Guest</button>
     </div>
 
-    <!-- Booking Modal -->
+    <!-- New Guest Booking Modal -->
     <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -117,7 +118,7 @@
                 <div class="modal-body">
                     <form id="guestReservationForm" action="BookRoomServlet" method="post">
                         <input type="hidden" name="roomId" value="<%= room.getRoomId() %>" />
-
+                        <!-- Guest Details -->
                         <h5>Guest Details</h5>
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -149,6 +150,7 @@
                             </div>
                         </div>
 
+                        <!-- Reservation Details -->
                         <h5>Reservation Details</h5>
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -185,6 +187,39 @@
                             <button type="submit" class="btn btn-success">Confirm Booking</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Guest Booking Modal -->
+    <div class="modal fade" id="oldGuestModal" tabindex="-1" aria-labelledby="oldGuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title" id="oldGuestModalLabel">Book for Existing Guest</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Search Form -->
+                    <form id="oldGuestSearchForm" method="get" action="BookRoomServlet">
+                        <input type="hidden" name="roomId" value="<%= room.getRoomId() %>" />
+                        <input type="hidden" name="pricePerNight" value="<%= pricePerNightDouble %>" />
+                        <input type="hidden" name="currency" value="<%= price.getCurrency() %>" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <input type="email" name="email" class="form-control" placeholder="Enter Guest Email" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="contactNumber" class="form-control" placeholder="Enter Contact Number" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Find Guest</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

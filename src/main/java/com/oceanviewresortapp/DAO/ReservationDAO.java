@@ -27,5 +27,10 @@ public class ReservationDAO {
         return cs.getInt(8);
     }
 
+    public ResultSet getGuestReservations() throws SQLException {
+
+        CallableStatement cs = conn.prepareCall("{call sp_GetGuestReservations}");
+        return cs.executeQuery();
+    }
 
 }

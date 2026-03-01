@@ -1,14 +1,15 @@
 package com.oceanviewresortapp.DAO;
 
 import com.oceanviewresortapp.model.Guest;
-import com.oceanviewresortapp.util.DB_Connection;
-
 import java.sql.*;
 
 public class GuestDAO {
 
     private Connection conn;
 
+    public GuestDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     public int saveGuest(Guest guest) throws SQLException {
 
@@ -27,30 +28,44 @@ public class GuestDAO {
         return cs.getInt(8);
     }
 
-    public Guest getGuestByEmailOrContact(String email, String contactNumber) {
-        Guest guest = null;
-        String sql = "SELECT * FROM GuestDetails WHERE Email = ? OR ContactNumber = ?";
-        try (Connection conn = DB_Connection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, email);
-            ps.setString(2, contactNumber);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                guest = new Guest();
-                guest.setGuestId(rs.getInt("GuestId"));
-                guest.setFirstName(rs.getString("FirstName"));
-                guest.setLastName(rs.getString("LastName"));
-                guest.setEmail(rs.getString("Email"));
-                guest.setContactNumber(rs.getString("ContactNumber"));
-                guest.setGuestIdNo(rs.getString("GuestIdNo"));
-                guest.setBirthOfDate(rs.getDate("BirthOfDate"));
-                guest.setAddress(rs.getString("Address"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Guest getGuestByEmail(String email) throws Exception {
+        String sql = "SELECT * FROM GuestDetails WHERE Email = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return mapGuest(rs);
         }
-        return guest;
+        return null;
+    }
+
+
+    public Guest getGuestByContact(String contact) throws Exception {
+        String sql = "SELECT * FROM GuestDetails WHERE ContactNumber = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, contact);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return mapGuest(rs);
+        }
+        return null;
+    }
+
+
+    private Guest mapGuest(ResultSet rs) throws Exception {
+        Guest g = new Guest();
+        g.setGuestId(rs.getInt("GuestId"));
+        g.setFirstName(rs.getString("FirstName"));
+        g.setLastName(rs.getString("LastName"));
+        g.setEmail(rs.getString("Email"));
+        g.setContactNumber(rs.getString("ContactNumber"));
+        g.setGuestIdNo(rs.getString("GuestIdNo"));
+        g.setBirthOfDate(rs.getDate("BirthOfDate"));
+        g.setAddress(rs.getString("Address"));
+        return g;
     }
 }
