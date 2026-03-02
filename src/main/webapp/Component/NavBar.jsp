@@ -12,9 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
+
 
         .navbar-ocean {
             background: linear-gradient(90deg, #0d6efd, #0aa2c0);
@@ -106,9 +104,16 @@
                     <a class="nav-link" href="ViewRoomDetails.jsp"><i class="bi bi-calendar-check"></i> View Rooms</a>
                 </li>
          <li class="nav-item">
-           a class="nav-link" href="ViewGuestReservations.jsp"><i class="bi bi-calendar-check"></i> Reservation Details</a>
-          </li>
-
+                            <a class="nav-link" href="<%=request.getContextPath()%>/ViewGuestReservations">
+                                <i class="bi bi-journal-text me-1"></i>Reservations Details
+                            </a>
+                        </li>
+<li class="nav-item">
+    <a class="nav-link" href="<%= request.getContextPath() %>/ViewGuests">
+        <i class="bi bi-people me-1"></i>
+        Guest Details
+    </a>
+</li>
                 <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="ViewUser.jsp"><i class="bi bi-people"></i> Users</a>
@@ -120,7 +125,7 @@
                 </li>
 
                 <li class="nav-item ms-3">
-                    <div class="welcome-badge">
+                    <div class="welcome-badge text-white">
                         <i class="bi bi-person-circle"></i>
                         <div>
                             <small>Welcome</small><br>

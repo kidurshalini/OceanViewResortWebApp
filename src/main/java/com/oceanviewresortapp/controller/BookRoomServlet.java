@@ -45,9 +45,7 @@ public class BookRoomServlet extends HttpServlet {
                 return;
             }
 
-        /* =========================
-           NEW GUEST (UNCHANGED)
-           ========================= */
+
             Guest guest = new Guest();
             guest.setFirstName(request.getParameter("firstName"));
             guest.setLastName(request.getParameter("lastName"));
@@ -79,9 +77,6 @@ public class BookRoomServlet extends HttpServlet {
         }
     }
 
-    /* =========================
-       GET → Search Existing Guest
-       ========================= */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

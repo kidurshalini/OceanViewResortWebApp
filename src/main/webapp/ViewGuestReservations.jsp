@@ -1,50 +1,103 @@
-<%@ page import="java.sql.ResultSet" %>
-
-<h2 align="center">Guest & Reservation Details</h2>
-
-<table border="1" width="100%" cellpadding="6" cellspacing="0">
-    <tr style="background:#f2f2f2">
-        <th>Reservation ID</th>
-        <th>Guest Name</th>
-        <th>Email</th>
-        <th>Contact</th>
-        <th>Room ID</th>
-        <th>Check-In</th>
-        <th>Check-Out</th>
-        <th>Nights</th>
-        <th>Total Price</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-
+<%@ page import="java.util.List, com.oceanviewresortapp.model.GuestReservationView, java.text.SimpleDateFormat" %>
 <%
-    ResultSet rs = (ResultSet) request.getAttribute("rs");
-
-    if (rs != null) {
-        while (rs.next()) {
+    String msg = request.getParameter("msg");
+    if (msg != null) {
 %>
-    <tr>
-        <td><%= rs.getInt("ReservationId") %></td>
-        <td><%= rs.getString("FirstName") %> <%= rs.getString("LastName") %></td>
-        <td><%= rs.getString("Email") %></td>
-        <td><%= rs.getString("ContactNumber") %></td>
-        <td><%= rs.getInt("RoomId") %></td>
-        <td><%= rs.getTimestamp("CheckIn") %></td>
-        <td><%= rs.getTimestamp("CheckOut") %></td>
-        <td><%= rs.getInt("TotalNights") %></td>
-        <td><%= rs.getBigDecimal("TotalPrice") %></td>
-        <td><%= rs.getString("ServiceStatus") %></td>
-
-        <td>
-            <form action="UpdateReservation.jsp" method="get">
-                <input type="hidden" name="reservationId"
-                       value="<%= rs.getInt("ReservationId") %>">
-                <input type="submit" value="Update">
-            </form>
-        </td>
-    </tr>
+<script>
+    alert("<%= msg %>");
+</script>
 <%
-        }
     }
 %>
-</table>
+
+<%
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+%>
+<html>
+<head>
+    <title>Guest Reservations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<jsp:include page="Component/NavBar.jsp" />
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="bi bi-journal-text me-2"></i>Guest & Reservation Details</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle">
+                    <thead class="table-dark text-center">
+                        <tr>
+
+                            <th>Guest Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Room Number</th>
+                            <th>Check-In</th>
+                            <th>Check-Out</th>
+                            <th>Nights</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+<%
+    List<GuestReservationView> reservations =
+        (List<GuestReservationView>) request.getAttribute("reservations");
+
+    if (reservations != null && !reservations.isEmpty()) {
+        for (GuestReservationView r : reservations) {
+%>
+<tr>
+
+    <td><strong><%= r.getFirstName() %> <%= r.getLastName() %></strong></td>
+    <td><%= r.getEmail() %></td>
+    <td><%= r.getContactNumber() %></td>
+    <td class="text-center"><%= r.getRoomNumber() %></td>
+   <td class="text-center"><%= (r.getCheckIn() != null) ? sdf.format(r.getCheckIn()) : "" %></td>
+   <td class="text-center"><%= (r.getCheckOut() != null) ? sdf.format(r.getCheckOut()) : "" %></td>
+    <td class="text-center"><%= r.getTotalNights() %></td>
+    <td class="text-center"><strong><%= r.getTotalPrice() %></strong></td>
+    <td class="text-center">
+        <% if ("Pending".equalsIgnoreCase(r.getServiceStatus())) { %>
+            <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split me-1"></i> Pending</span>
+        <% } else if ("Confirmed".equalsIgnoreCase(r.getServiceStatus())) { %>
+            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Confirmed</span>
+        <% } else { %>
+            <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i> Cancelled</span>
+        <% } %>
+    </td>
+    <td class="text-center">
+      <a href="UpdateReservationServlet?reservationId=<%= r.getReservationId() %>" class="btn btn-sm btn-warning">
+          <i class="bi bi-pencil-square"></i> Update
+      </a>
+    </td>
+</tr>
+<%
+        }
+    } else {
+%>
+<tr>
+    <td colspan="11" class="text-center text-muted">No reservations found</td>
+</tr>
+<%
+    }
+%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

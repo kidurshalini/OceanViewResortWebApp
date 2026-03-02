@@ -2,6 +2,8 @@ package com.oceanviewresortapp.DAO;
 
 import com.oceanviewresortapp.model.Guest;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuestDAO {
 
@@ -68,4 +70,41 @@ public class GuestDAO {
         g.setAddress(rs.getString("Address"));
         return g;
     }
+
+    public boolean updateGuest(Guest guest) throws SQLException {
+        CallableStatement cs = conn.prepareCall("{call sp_UpdateGuestDetails(?,?,?,?,?,?,?,?)}");
+        cs.setInt(1, guest.getGuestId());
+        cs.setString(2, guest.getFirstName());
+        cs.setString(3, guest.getLastName());
+        cs.setString(4, guest.getEmail());
+        cs.setString(5, guest.getContactNumber());
+        cs.setString(6, guest.getGuestIdNo());
+        cs.setDate(7, new java.sql.Date(guest.getBirthOfDate().getTime()));
+        cs.setString(8, guest.getAddress());
+        return cs.executeUpdate() > 0;
+    }
+
+    // Get Guest by ID
+    public Guest getGuestById(int guestId) throws Exception {
+        CallableStatement cs = conn.prepareCall("{call sp_GetGuestById(?)}");
+        cs.setInt(1, guestId);
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()) {
+            return mapGuest(rs);
+        }
+        return null;
+    }
+
+    // Get All Guests
+    public List<Guest> getAllGuests() throws Exception {
+        List<Guest> guests = new ArrayList<>();
+        CallableStatement cs = conn.prepareCall("{call sp_GetAllGuests}");
+        ResultSet rs = cs.executeQuery();
+        while (rs.next()) {
+            guests.add(mapGuest(rs));
+        }
+        return guests;
+    }
+
+
 }
