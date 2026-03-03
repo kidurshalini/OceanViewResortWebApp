@@ -90,13 +90,12 @@
            <i class="bi bi-printer"></i> Print Bill
        </a>
 
-       <!-- Send Email Button -->
-       <form action="SendBillEmailServlet" method="post" style="display:inline;">
-           <input type="hidden" name="reservationId" value="<%= r.getReservationId() %>">
-           <button type="submit" class="btn btn-success btn-sm mb-1">
-               <i class="bi bi-envelope"></i> Send Email
-           </button>
-       </form>
+     <!-- Send Email Button -->
+     <a href="SendEmailServlet?reservationId=<%= r.getReservationId() %>"
+        class="btn btn-success btn-sm me-1 mb-1"
+        onclick="return confirm('Are you sure you want to send the email?');">
+         <i class="bi bi-envelope-fill"></i> Send Email
+     </a>
    </td>
 </tr>
 <%
