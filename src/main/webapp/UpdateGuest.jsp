@@ -4,17 +4,62 @@
 <head>
     <title>Update Guest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background-color: #17a2b8;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <div class="container mt-5">
     <div class="card shadow">
-        <div class="card-header bg-secondary text-white text-center">
-            <h4>Update Guest Details</h4>
+        <div class="card-header">
+            Update Guest Details
         </div>
 
         <div class="card-body">
-
             <input type="hidden" id="guestId">
 
             <!-- First Name / Last Name -->
@@ -34,7 +79,6 @@
                 <div class="col-md-6">
                     <label class="form-label">Contact Number</label>
                     <div class="input-group">
-
                         <select class="form-select" id="countryCode" required>
                             <option value="+1">United States (+1)</option>
                             <option value="+44">United Kingdom (+44)</option>
@@ -42,20 +86,11 @@
                             <option value="+94" selected>Sri Lanka (+94)</option>
                             <option value="+93">Afghanistan (+93)</option>
                         </select>
-
-                        <input
-                                type="tel"
-                                class="form-control"
-                                id="contactNumber"
-                                pattern="[0-9]{7,15}"
-                                maxlength="15"
-                                minlength="7"
-                                placeholder="Enter phone number"
-                                required>
+                        <input type="tel" class="form-control" id="contactNumber"
+                               pattern="[0-9]{7,15}" maxlength="15" minlength="7"
+                               placeholder="Enter phone number" required>
                     </div>
-                    <div class="form-text">
-                        Select country code and enter 7–15 digits.
-                    </div>
+                    <div class="form-text">Select country code and enter 7–15 digits.</div>
                 </div>
 
                 <div class="col-md-6">
@@ -64,51 +99,47 @@
                 </div>
             </div>
 
-            <!-- ID Type + DOB -->
+            <!-- ID Type + ID Number -->
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="form-label">ID Type</label>
                     <select class="form-select" id="idType" onchange="updateIdValidation()" required>
                         <option value="NIC">National ID (NIC)</option>
                         <option value="PASSPORT">Passport</option>
                     </select>
-
-                    <label class="form-label mt-2">ID Number</label>
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">ID Number</label>
                     <input class="form-control" id="guestIdNo" required>
                     <div class="form-text" id="idHelpText"></div>
                 </div>
+            </div>
 
-                <div class="col-md-6">
+            <!-- Date of Birth + Address -->
+            <div class="row mb-3">
+                <div class="col-md-4">
                     <label class="form-label">Date of Birth</label>
                     <input type="date" id="birthOfDate" class="form-control" required>
                 </div>
-            </div>
-
-            <!-- Address -->
-            <div class="mb-3">
-                <label class="form-label">Address</label>
-                <textarea class="form-control" id="address" rows="3" required></textarea>
+                <div class="col-md-8">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" id="address" rows="3" required></textarea>
+                </div>
             </div>
 
         </div>
 
         <div class="card-footer text-end">
-            <button class="btn btn-success" onclick="updateGuest()" type="button">
-                Update Guest
-            </button>
+            <button class="btn btn-success" onclick="updateGuest()" type="button">Update Guest</button>
         </div>
     </div>
 </div>
 
 <script>
-
-// Get ID from URL
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 document.getElementById("guestId").value = id;
 
-
-// Format Date
 function formatDate(str) {
     const d = new Date(str);
     const month = (d.getMonth() + 1).toString().padStart(2,'0');
@@ -116,17 +147,13 @@ function formatDate(str) {
     return `${d.getFullYear()}-${month}-${day}`;
 }
 
-
-// 18+ Validation
+// 18+ DOB Validation
 const todayDate = new Date();
 const year18Ago = todayDate.getFullYear() - 18;
 const month = String(todayDate.getMonth() + 1).padStart(2, '0');
 const day = String(todayDate.getDate()).padStart(2, '0');
-const maxDate = `${year18Ago}-${month}-${day}`;
-document.getElementById('birthOfDate').setAttribute('max', maxDate);
+document.getElementById('birthOfDate').setAttribute('max', `${year18Ago}-${month}-${day}`);
 
-
-// ID Validation
 function updateIdValidation() {
     const idType = document.getElementById("idType").value;
     const idInput = document.getElementById("guestIdNo");
@@ -148,23 +175,19 @@ function updateIdValidation() {
     }
 }
 
-
 // Allow only numbers for contact
 document.getElementById("contactNumber").addEventListener("input", function() {
     this.value = this.value.replace(/[^0-9]/g, '');
 });
 
-
 // Load Guest Data
 fetch("<%= request.getContextPath() %>/api/guests/" + id)
     .then(res => res.json())
     .then(g => {
-
         document.getElementById("firstName").value = g.FirstName;
         document.getElementById("lastName").value = g.LastName;
         document.getElementById("email").value = g.Email;
 
-        // Split country code and number
         const phone = g.ContactNumber;
         const match = phone.match(/^(\+\d+)(\d+)$/);
         if (match) {
@@ -179,15 +202,12 @@ fetch("<%= request.getContextPath() %>/api/guests/" + id)
         if(g.IdType){
             document.getElementById("idType").value = g.IdType;
         }
-
         updateIdValidation();
         document.getElementById("guestIdNo").value = g.GuestIdNo;
     });
 
-
 // Update Guest
 function updateGuest() {
-
     const fullContact =
         document.getElementById("countryCode").value +
         document.getElementById("contactNumber").value;
@@ -215,7 +235,6 @@ function updateGuest() {
     })
     .catch(err => alert("Error updating guest!"));
 }
-
 </script>
 
 </body>

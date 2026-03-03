@@ -26,19 +26,71 @@
     <meta charset="UTF-8">
     <title>Update Room Price</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background-color: #17a2b8; /* soft blue */
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .room-info {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
+<div class="container mt-5">
+    <div class="room-info">
+        <h2>Update Room Price</h2>
+        <p>Room: <strong><%= room != null ? room.getRoomName() : "Unknown" %></strong></p>
+    </div>
+
     <form action="RoomDetailsServlet" method="post">
-        <div class="card shadow">
-            <div class="card-header bg-info text-white text-center">
-                <h4>Update Room Price</h4>
+        <div class="card">
+            <div class="card-header">
+                Price Details
             </div>
             <div class="card-body">
                 <!-- Hidden fields -->
                 <input type="hidden" name="action" value="updateprice">
-         <input type="hidden" name="roomId" value="<%= price.getRoomDetailsId() %>">
-       <input type="hidden" name="roompricedetaildid" value="<%= price.getRoomPriceDetailsId() %>">
+                <input type="hidden" name="roomId" value="<%= price.getRoomDetailsId() %>">
+                <input type="hidden" name="roompricedetaildid" value="<%= price.getRoomPriceDetailsId() %>">
+
                 <!-- Currency -->
                 <div class="mb-3">
                     <label class="form-label">Currency</label>
