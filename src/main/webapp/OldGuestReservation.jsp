@@ -59,14 +59,30 @@
                 <input type="hidden" id="pricePerNight" value="<%= pricePerNight %>" />
 
                 <div class="row mb-2">
-                    <div class="col-md-6">
-                        <label>Check-In</label>
-                        <input type="date" name="checkIn" class="form-control" required onchange="calculateTotal()" />
-                    </div>
-                    <div class="col-md-6">
-                        <label>Check-Out</label>
-                        <input type="date" name="checkOut" class="form-control" required onchange="calculateTotal()" />
-                    </div>
+              <div class="col-md-6">
+                  <label>Check-In</label>
+                  <input
+                      type="date"
+                      name="checkIn"
+                      class="form-control"
+                      required
+                      onchange="calculateTotal()"
+                      id="checkIn"
+                      min=""
+                  />
+              </div>
+              <div class="col-md-6">
+                  <label>Check-Out</label>
+                  <input
+                      type="date"
+                      name="checkOut"
+                      class="form-control"
+                      required
+                      onchange="calculateTotal()"
+                      id="checkOut"
+                      min=""
+                  />
+              </div>
                 </div>
 
                 <div class="row mb-2">
@@ -120,6 +136,19 @@ function calculateTotal() {
         }
     }
 }
+
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('checkIn').setAttribute('min', today);
+document.getElementById('checkOut').setAttribute('min', today);
+
+// Optional: automatically update check-out min when check-in changes
+document.getElementById('checkIn').addEventListener('change', function() {
+    const checkOut = document.getElementById('checkOut');
+    checkOut.min = this.value;
+    if (checkOut.value < this.value) {
+        checkOut.value = this.value; // adjust if user already picked an earlier date
+    }
+});
 </script>
 
 </body>

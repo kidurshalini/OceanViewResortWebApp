@@ -13,6 +13,8 @@
 <%
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
+
+
 <html>
 <head>
     <title>Guest Reservations</title>
@@ -75,11 +77,27 @@
             <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i> Cancelled</span>
         <% } %>
     </td>
-    <td class="text-center">
-      <a href="UpdateReservationServlet?reservationId=<%= r.getReservationId() %>" class="btn btn-sm btn-warning">
-          <i class="bi bi-pencil-square"></i> Update
-      </a>
-    </td>
+   <td class="text-center">
+       <!-- Update Button -->
+       <a href="UpdateReservationServlet?reservationId=<%= r.getReservationId() %>"
+          class="btn btn-warning btn-sm me-1 mb-1">
+           <i class="bi bi-pencil-square"></i> Update
+       </a>
+
+       <!-- Print Bill Button -->
+       <a href="PrintBillServlet?reservationId=<%= r.getReservationId() %>"
+          class="btn btn-primary btn-sm me-1 mb-1">
+           <i class="bi bi-printer"></i> Print Bill
+       </a>
+
+       <!-- Send Email Button -->
+       <form action="SendBillEmailServlet" method="post" style="display:inline;">
+           <input type="hidden" name="reservationId" value="<%= r.getReservationId() %>">
+           <button type="submit" class="btn btn-success btn-sm mb-1">
+               <i class="bi bi-envelope"></i> Send Email
+           </button>
+       </form>
+   </td>
 </tr>
 <%
         }
@@ -94,6 +112,8 @@
                     </tbody>
                 </table>
             </div>
+
+
         </div>
     </div>
 </div>
