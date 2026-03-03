@@ -19,16 +19,19 @@ public class UserServlet extends HttpServlet {
 
         try {
             if ("add".equalsIgnoreCase(action)) {
-                // --- Add User ---
+
                 String fullName = request.getParameter("fullName");
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
                 String role = request.getParameter("role");
                 boolean isActive = request.getParameter("isActive") != null;
+                String countryCode = request.getParameter("countryCode");
                 String contact = request.getParameter("contact");
+
+                String fullContact = countryCode + contact;
                 String idnumber = request.getParameter("idnumber");
 
-                User user = new User(fullName, email, password, role, isActive, contact, idnumber);
+                User user = new User(fullName, email, password, role, isActive, fullContact, idnumber);
                 dao.insert(user);
 
                 response.sendRedirect("ViewUser.jsp?msg=User added successfully!");

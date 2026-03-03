@@ -73,7 +73,7 @@ public class BookRoomServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("ViewRoomDetails.jsp?msg=Booking Failed&type=danger");
+            response.sendRedirect("ViewRoomDetails.jsp?msg=Booking Failed&type=danger"+e.getMessage());
         }
     }
 
