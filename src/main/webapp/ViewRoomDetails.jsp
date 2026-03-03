@@ -20,6 +20,13 @@
         e.printStackTrace();
     }
 %>
+<%
+    User user = (User) session.getAttribute("loggedUser");
+    if (user == null) {
+        response.sendRedirect("Login.jsp?msg=Please login first");
+        return;
+    }
+%>
 
 <html>
 <head>
@@ -106,6 +113,13 @@
                     </tbody>
                 </table>
             </div>
+ <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
+                            <div class="mt-4 text-end">
+                                                      <a href="MonthlyBookingReportServlet" class="btn btn-primary">
+                                                          <i class="bi bi-bar-chart-line"></i> View Monthly Booking Report
+                                                      </a>
+                                                  </div>
+                            <% } %>
         </div>
     </div>
 </div>

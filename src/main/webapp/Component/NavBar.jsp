@@ -109,12 +109,11 @@
                             </a>
                         </li>
 <li class="nav-item">
-    <a class="nav-link" href="<%= request.getContextPath() %>/ViewGuests">
+    <a class="nav-link" href="<%= request.getContextPath() %>/ViewGuestsDetails.jsp">
         <i class="bi bi-people me-1"></i>
         Guest Details
     </a>
-</li>
-                <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
+</li>       <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="ViewUser.jsp"><i class="bi bi-people"></i> Users</a>
                 </li>

@@ -80,9 +80,7 @@
                 <i class="bi bi-plus-circle me-1"></i>
                 Update Room
             </button>
-            <button type="reset" class="btn btn-secondary ms-2">
-                Reset
-            </button>
+
         </div>
         </div>
 </form>

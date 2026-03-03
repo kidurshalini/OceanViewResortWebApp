@@ -5,14 +5,13 @@ import com.oceanviewresortapp.model.RoomPriceDetails;
 import com.oceanviewresortapp.util.DB_Connection;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.*;
 import java.util.Arrays;
 import java.math.BigDecimal;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
+import java.util.*;
 
 public class RoomDetailsDAOImpl implements RoomDetailsDAO {
 
@@ -209,5 +208,35 @@ public class RoomDetailsDAOImpl implements RoomDetailsDAO {
             cs.executeUpdate();
         }
 
+    }
+
+    public Map<String, Integer> getMonthlyBookingsByRoomType() {
+
+        Map<String, Integer> result = new HashMap<>();
+
+        String sql =
+                "SELECT r.RoomType, COUNT(res.ReservationId) AS totalBookings " +
+                        "FROM RoomDetails r " +
+                        "LEFT JOIN Reservation res ON r.RoomId = res.RoomId " +
+                        "AND MONTH(res.CheckIn) = MONTH(GETDATE()) " +
+                        "AND YEAR(res.CheckIn) = YEAR(GETDATE()) " +
+                        "GROUP BY r.RoomType";
+
+        try (Connection con = DB_Connection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                result.put(
+                        rs.getString("RoomType"),
+                        rs.getInt("totalBookings")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

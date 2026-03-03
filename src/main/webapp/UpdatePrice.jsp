@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="card-footer text-end">
-                <button type="submit" class="btn btn-info">Update Price</button>
+                <button type="submit" class="btn btn-success">Update Price</button>
             </div>
         </div>
     </form>

@@ -132,17 +132,35 @@
                             <div class="col-md-6">
                                 <input type="email" name="email" class="form-control" placeholder="Email" required />
                             </div>
-                            <div class="col-md-6">
-                                <input type="text" name="contactNumber" class="form-control" placeholder="Contact Number" required />
-                            </div>
+                          <div class="col-md-6">
+                              <input
+                                  type="tel"
+                                  name="contactNumber"
+                                  class="form-control"
+                                  placeholder="Contact Number"
+                                  pattern="[0-9]{10,15}"
+                                  maxlength="15"
+                                  minlength="10"
+                                  required
+                                  title="Enter 10 to 15 digits only"
+                              />
+                          </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <input type="text" name="guestIdNo" class="form-control" placeholder="ID Number" required />
                             </div>
-                            <div class="col-md-6">
-                                <input type="date" name="birthOfDate" class="form-control" placeholder="Date of Birth" required />
-                            </div>
+                           <div class="col-md-6">
+                               <input
+                                   type="date"
+                                   name="birthOfDate"
+                                   class="form-control"
+                                   placeholder="Date of Birth"
+                                   required
+                                   id="birthOfDate"
+                                   max=""
+                               />
+                           </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-12">
@@ -153,14 +171,27 @@
                         <!-- Reservation Details -->
                         <h5>Reservation Details</h5>
                         <div class="row mb-2">
-                            <div class="col-md-6">
-                                <label>Check-In:</label>
-                                <input type="date" name="checkIn" class="form-control" required onchange="calculateTotal()" />
-                            </div>
-                            <div class="col-md-6">
-                                <label>Check-Out:</label>
-                                <input type="date" name="checkOut" class="form-control" required onchange="calculateTotal()" />
-                            </div>
+                           <div class="col-md-6">
+                               <label>Check-In:</label>
+                               <input
+                                   type="date"
+                                   name="checkIn"
+                                   class="form-control"
+                                   required
+                                   onchange="calculateTotal(); updateCheckOutMin()"
+                                   id="checkIn"
+                               />
+                           </div>
+                           <div class="col-md-6">
+                               <label>Check-Out:</label>
+                               <input
+                                   type="date"
+                                   name="checkOut"
+                                   class="form-control"
+                                   required
+                                   onchange="calculateTotal()"
+                                   id="checkOut"
+                               />
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -250,6 +281,31 @@
         document.getElementById('totalNights').value = 0;
         document.getElementById('totalPrice').value = "0.00";
     }
+
+    const today = new Date();
+    const year18Ago = today.getFullYear() - 18;
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const maxDate = `${year18Ago}-${month}-${day}`;
+
+    // Set as max attribute
+    document.getElementById('birthOfDate').setAttribute('max', maxDate);
+
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('checkIn').setAttribute('min', today);
+  document.getElementById('checkOut').setAttribute('min', today);
+
+  // Ensure Check-Out is not before Check-In
+  function updateCheckOutMin() {
+      const checkIn = document.getElementById('checkIn').value;
+      const checkOut = document.getElementById('checkOut');
+      if (checkIn) {
+          checkOut.min = checkIn; // set min date for Check-Out
+          if (checkOut.value < checkIn) {
+              checkOut.value = checkIn; // adjust if user already selected earlier
+          }
+      }
+  }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -30,6 +30,7 @@ public class UserServlet extends HttpServlet {
 
                 User user = new User(fullName, email, password, role, isActive, contact, idnumber);
                 dao.insert(user);
+
                 response.sendRedirect("ViewUser.jsp?msg=User added successfully!");
 
             } else if ("update".equalsIgnoreCase(action)) {

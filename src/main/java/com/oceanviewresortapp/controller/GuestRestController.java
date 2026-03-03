@@ -26,16 +26,12 @@ public class GuestRestController extends HttpServlet {
 
         try (Connection conn = DB_Connection.getConnection()) {
             GuestDAO dao = new GuestDAO(conn);
-
             String pathInfo = request.getPathInfo();
 
-            // GET ALL
             if (pathInfo == null || pathInfo.equals("/")) {
                 List<Guest> guests = dao.getAllGuests();
                 response.getWriter().write(gson.toJson(guests));
-            }
-            // GET BY ID
-            else {
+            } else {
                 int guestId = Integer.parseInt(pathInfo.substring(1));
                 Guest guest = dao.getGuestById(guestId);
 
@@ -74,6 +70,7 @@ public class GuestRestController extends HttpServlet {
 
             if (updated) {
                 response.getWriter().write("{\"message\":\"Guest updated successfully\"}");
+
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.getWriter().write("{\"message\":\"Update failed\"}");

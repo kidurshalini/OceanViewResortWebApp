@@ -3,6 +3,7 @@ package com.oceanviewresortapp.DAO;
 import com.oceanviewresortapp.model.GuestReservationView;
 import com.oceanviewresortapp.model.Reservation;
 import com.oceanviewresortapp.model.RoomDetails;
+import com.oceanviewresortapp.model.RoomPriceDetails;
 import com.oceanviewresortapp.util.DB_Connection;
 
 import java.sql.*;
@@ -112,5 +113,24 @@ public class ReservationDAO {
         cs.setInt(7, res.getRoomId());
         cs.execute();
     }
+    public RoomPriceDetails getRoomPriceDetailsByRoomId(int roomId) throws SQLException {
+        String sql = "SELECT rpd.RoomPriceDetailsId, rpd.roomDetailsId, rpd.Currency, rpd.PricePerNight, " +
+                "rd.RoomType, rd.RoomNumber " +
+                "FROM RoomPriceDetails rpd " +
+                "JOIN RoomDetails rd ON rpd.roomDetailsId = rd.RoomId " +
+                "WHERE rd.RoomId = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, roomId);
+        ResultSet rs = ps.executeQuery();
 
+        if (rs.next()) {
+            RoomPriceDetails roomPrice = new RoomPriceDetails();
+            roomPrice.setRoomPriceDetailsId(rs.getInt("RoomPriceDetailsId"));
+            roomPrice.setRoomDetailsId(rs.getInt("roomDetailsId"));
+            roomPrice.setCurrency(rs.getString("Currency"));
+            roomPrice.setPricePerNight(rs.getBigDecimal("PricePerNight"));
+            return roomPrice;
+        }
+        return null;
+    }
 }

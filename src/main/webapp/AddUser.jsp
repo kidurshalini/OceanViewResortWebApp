@@ -43,9 +43,20 @@
 
 
                         <div class="row mb-3">
+
                             <div class="col-md-6">
-                                <label class="form-label">Contact</label>
-                                <input type="text" class="form-control" name="contact" required>
+                                <label for="contact" class="form-label">Contact Number</label>
+                                <input
+                                    type="tel"
+                                    class="form-control"
+                                    id="contact"
+                                    name="contact"
+                                    pattern="[0-9]{10,15}"
+                                    maxlength="15"
+                                    minlength="10"
+                                    required
+                                >
+                                <div class="form-text">Enter 10 to 15 digits only.</div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">ID Number</label>
@@ -58,12 +69,22 @@
                             <div class="col-md-6">
                                 <label class="form-label">Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input
+                                        type="password"
+                                        class="form-control"
+                                        id="password"
+                                        name="password"
+                                        pattern="(?=.*[A-Za-z])(?=.*\d).{6,}"
+                                        title="Password must be at least 6 characters long and include letters and numbers"
+                                        required
+                                    >
                                     <span class="input-group-text" style="cursor:pointer;" onclick="togglePassword()">
                                         <i class="bi bi-eye" id="eyeIcon"></i>
                                     </span>
                                 </div>
+                                <div class="form-text">Minimum 6 characters with letters and numbers.</div>
                             </div>
+
 
                             <div class="col-md-6">
                                 <label class="form-label">Role</label>
