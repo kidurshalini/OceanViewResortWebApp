@@ -135,22 +135,30 @@
             </ul>
 
 
-            <ul class="navbar-nav logout-link flex-row align-items-center">
-                <li class="nav-item me-3">
-                    <div class="welcome-badge">
-                        <i class="bi bi-person-circle"></i>
-                        <div>
-                            <small>Welcome</small><br>
-                            <strong><%= user.getFullName() %></strong>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="LogoutServlet">
-                        <i class="bi bi-box-arrow-right me-1"></i>Logout
-                    </a>
-                </li>
-            </ul>
+           <ul class="navbar-nav logout-link flex-row align-items-center">
+               <li class="nav-item me-3">
+                   <div class="welcome-badge">
+                       <i class="bi bi-person-circle"></i>
+                       <div>
+                           <small>Welcome</small><br>
+                           <strong><%= user.getFullName() %></strong>
+                       </div>
+                   </div>
+               </li>
+
+               <!-- Help Button -->
+               <li class="nav-item me-2">
+                   <a class="nav-link text-warning" href="helpsection.jsp">
+                       <i class="bi bi-question-circle-fill me-1"></i>Help
+                   </a>
+               </li>
+
+               <li class="nav-item">
+                   <a class="nav-link text-danger" href="LogoutServlet">
+                       <i class="bi bi-box-arrow-right me-1"></i>Logout
+                   </a>
+               </li>
+           </ul>
 
         </div>
     </div>

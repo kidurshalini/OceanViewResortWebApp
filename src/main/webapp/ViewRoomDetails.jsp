@@ -99,89 +99,105 @@
             <h5 class="mb-0 text-white">Room Details</h5>
         </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover align-middle">
-                    <thead class="text-center">
-                        <tr>
-                            <th>Room Type</th>
-                            <th>Room Number</th>
-                            <th>Room Name</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Capacity</th>
-                            <th>Currency</th>
-                            <th>Price per Night</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <%
-                        for (RoomDetails r : rooms) {
-                            RoomPriceDetails price = null;
-                            try {
-                                price = roomDAO.getPriceByRoomId(r.getRoomId());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                    %>
-                        <tr>
-                            <td><%= r.getRoomType() %></td>
-                            <td><%= r.getRoomNumber() %></td>
-                            <td><%= r.getRoomName() %></td>
-                            <td><%= r.getRoomDescription() %></td>
-                            <td class="text-center">
-                                <% if ("Available".equalsIgnoreCase(r.getRoomAvailabilityStatus())) { %>
-                                    <span class="badge badge-available">
-                                        <i class="bi bi-check-circle me-1"></i>Available
-                                    </span>
-                                <% } else { %>
-                                    <span class="badge badge-notavailable">
-                                        <i class="bi bi-x-circle me-1"></i>Not Available
-                                    </span>
-                                <% } %>
-                            </td>
-                            <td class="text-center"><%= r.getRoomCapacity() %></td>
-                            <td class="text-center"><%= (price != null) ? price.getCurrency() : "No price set" %></td>
-                            <td class="text-center"><%= (price != null && price.getPricePerNight() != null) ? price.getPricePerNight() : "No price set" %></td>
-                            <td class="text-center">
-                                <!-- Edit Room Button -->
-                                <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-edit-room me-2">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-                                <!-- View Room Button -->
-                                <a href="ViewRoomDetailsList.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-view-room me-2">
-                                    <i class="bi bi-eye"></i> View
-                                </a>
-                                <!-- Edit Price Button -->
-                                <a href="UpdatePrice.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-edit-price me-2">
-                                    <i class="bi bi-cash-coin"></i> Edit Price
-                                </a>
-                                <!-- Delete Button -->
-                                <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete" class="btn btn-sm btn-danger"
-                                   onclick="return confirm('Are you sure you want to delete this room?')">
-                                    <i class="bi bi-trash"></i> Delete
-                                </a>
-                            </td>
-                        </tr>
-                    <%
-                        }
-                    %>
-                    </tbody>
-                </table>
-            </div>
+     <div class="card-body">
+         <!-- Search Bar -->
+         <div class="row mb-3">
+             <div class="col-md-6">
+                 <input type="text" id="roomSearch" class="form-control" placeholder="Search by Room Type, Number, Name or Status..." onkeyup="filterRooms()">
+             </div>
+         </div>
 
-            <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
-            <div class="mt-4 text-end">
-                <a href="MonthlyBookingReportServlet" class="btn btn-view-room">
-                    <i class="bi bi-bar-chart-line"></i> View Monthly Booking Report
-                </a>
-            </div>
-            <% } %>
-        </div>
-    </div>
-</div>
+         <div class="table-responsive">
+             <table class="table table-bordered table-striped table-hover align-middle" id="roomsTable">
+                 <thead class="text-center">
+                     <tr>
+                         <th>Room Type</th>
+                         <th>Room Number</th>
+                         <th>Room Name</th>
+                         <th>Description</th>
+                         <th>Status</th>
+                         <th>Capacity</th>
+                         <th>Currency</th>
+                         <th>Price per Night</th>
+                         <th>Action</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     <% for (RoomDetails r : rooms) {
+                             RoomPriceDetails price = null;
+                             try {
+                                 price = roomDAO.getPriceByRoomId(r.getRoomId());
+                             } catch (Exception e) { e.printStackTrace(); }
+                     %>
+                     <tr>
+                         <td><%= r.getRoomType() %></td>
+                         <td><%= r.getRoomNumber() %></td>
+                         <td><%= r.getRoomName() %></td>
+                         <td><%= r.getRoomDescription() %></td>
+                         <td class="text-center">
+                             <% if ("Available".equalsIgnoreCase(r.getRoomAvailabilityStatus())) { %>
+                                 <span class="badge badge-available">
+                                     <i class="bi bi-check-circle me-1"></i>Available
+                                 </span>
+                             <% } else { %>
+                                 <span class="badge badge-notavailable">
+                                     <i class="bi bi-x-circle me-1"></i>Not Available
+                                 </span>
+                             <% } %>
+                         </td>
+                         <td class="text-center"><%= r.getRoomCapacity() %></td>
+                         <td class="text-center"><%= (price != null) ? price.getCurrency() : "No price set" %></td>
+                         <td class="text-center"><%= (price != null && price.getPricePerNight() != null) ? price.getPricePerNight() : "No price set" %></td>
+                         <td class="text-center">
+                             <a href="UpdateRoomDetails.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-edit-room me-2">
+                                 <i class="bi bi-pencil-square"></i>
+                             </a>
+                             <a href="ViewRoomDetailsList.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-view-room me-2">
+                                 <i class="bi bi-eye"></i>
+                             </a>
+                             <a href="UpdatePrice.jsp?roomId=<%= r.getRoomId() %>" class="btn btn-sm btn-edit-price me-2">
+                                 <i class="bi bi-cash-coin"></i> Edit Price
+                             </a>
+                             <a href="RoomDetailsServlet?roomId=<%= r.getRoomId() %>&action=delete" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Are you sure you want to delete this room?')">
+                                 <i class="bi bi-trash"></i>
+                             </a>
+                         </td>
+                     </tr>
+                     <% } %>
+                 </tbody>
+             </table>
+         </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+         <% if ("ADMIN".equalsIgnoreCase(user.getRole())) { %>
+         <div class="mt-4 text-end">
+             <a href="MonthlyBookingReportServlet" class="btn btn-view-room">
+                 <i class="bi bi-bar-chart-line"></i> View Monthly Booking Report
+             </a>
+         </div>
+         <% } %>
+     </div>
+
+     <script>
+     function filterRooms() {
+         const input = document.getElementById("roomSearch");
+         const filter = input.value.toLowerCase();
+         const table = document.getElementById("roomsTable");
+         const tr = table.getElementsByTagName("tr");
+
+         for (let i = 1; i < tr.length; i++) { // skip header row
+             const tdArray = tr[i].getElementsByTagName("td");
+             let rowText = "";
+             for (let j = 0; j < tdArray.length; j++) {
+                 rowText += tdArray[j].textContent.toLowerCase() + " ";
+             }
+             if (rowText.indexOf(filter) > -1) {
+                 tr[i].style.display = "";
+             } else {
+                 tr[i].style.display = "none";
+             }
+         }
+     }
+     </script>
 </body>
 </html>

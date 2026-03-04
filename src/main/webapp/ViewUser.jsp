@@ -90,59 +90,69 @@
         </div>
         <div class="card-body">
             <% if(msg != null){ %>
-            <div class="alert alert-info"><%= msg %></div>
+                <div class="alert alert-info"><%= msg %></div>
             <% } %>
 
             <a href="AddUser.jsp" class="btn btn-add mb-3">
                 <i class="bi bi-plus-circle me-1"></i> Add New User
             </a>
 
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input type="text" id="userSearch" class="form-control"
+                           placeholder="Search by Name, Email, Contact, Role or Status..."
+                           onkeyup="filterUsers()">
+                </div>
+            </div>
+
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle">
+                <table id="usersTable" class="table table-bordered table-striped align-middle">
                     <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Contact</th>
-                        <th>ID Number</th>
-                        <th>Password</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>ID Number</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <% for(User user : users) { %>
-                    <tr>
-                        <td><%= user.getUserId() %></td>
-                        <td><%= user.getFullName() %></td>
-                        <td><%= user.getEmail() %></td>
-                        <td><%= user.getContact() %></td>
-                        <td><%= user.getIdNumber() %></td>
-                        <td><%= user.getPassword() %></td>
-                        <td><%= user.getRole() %></td>
-                        <td class="text-center">
-                            <% if (user.isIsActive()) { %>
-                            <span class="badge badge-active">
-                                <i class="bi bi-check-circle me-1"></i> Active
-                            </span>
-                            <% } else { %>
-                            <span class="badge badge-inactive">
-                                <i class="bi bi-x-circle me-1"></i> Inactive
-                            </span>
-                            <% } %>
-                        </td>
-                        <td class="text-center">
-                            <a href="UpdateUser.jsp?action=update&userId=<%= user.getUserId()%>" class="btn btn-update btn-sm mb-1">
-                                <i class="bi bi-pencil-square"></i> Update
-                            </a>
-                            <button class="btn btn-delete btn-sm delete-btn mb-1" data-userid="<%= user.getUserId() %>">
-                                <i class="bi bi-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <% } %>
+                        <% for(User user : users) { %>
+                            <tr>
+                                <td><%= user.getUserId() %></td>
+                                <td><%= user.getFullName() %></td>
+                                <td><%= user.getEmail() %></td>
+                                <td><%= user.getContact() %></td>
+                                <td><%= user.getIdNumber() %></td>
+                                <td><%= user.getPassword() %></td>
+                                <td><%= user.getRole() %></td>
+                                <td class="text-center">
+                                    <% if (user.isIsActive()) { %>
+                                        <span class="badge badge-active">
+                                            <i class="bi bi-check-circle me-1"></i> Active
+                                        </span>
+                                    <% } else { %>
+                                        <span class="badge badge-inactive">
+                                            <i class="bi bi-x-circle me-1"></i> Inactive
+                                        </span>
+                                    <% } %>
+                                </td>
+                                <td class="text-center">
+                                    <a href="UpdateUser.jsp?action=update&userId=<%= user.getUserId()%>"
+                                       class="btn btn-update btn-sm mb-1">
+                                        <i class="bi bi-pencil-square"></i> Update
+                                    </a>
+                                    <button class="btn btn-delete btn-sm delete-btn mb-1"
+                                            data-userid="<%= user.getUserId() %>">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -175,6 +185,26 @@
             }
         });
     });
+
+    function filterUsers() {
+        const input = document.getElementById("userSearch");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("usersTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) { // skip header row
+            const tdArray = tr[i].getElementsByTagName("td");
+            let rowText = "";
+            for (let j = 0; j < tdArray.length; j++) {
+                rowText += tdArray[j].textContent.toLowerCase() + " ";
+            }
+            if (rowText.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 </script>
 
 </body>
