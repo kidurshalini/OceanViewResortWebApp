@@ -127,4 +127,17 @@ public class UserDAOImpl implements GenericDAO<User> {
         con.close();
         return user;
     }
+
+    public boolean validateUser(String email, String password) {
+
+        if(email == null || password == null) {
+            return false;
+        }
+
+        if(email.equals("admin@gmail.com") && password.equals("Shan@2001")) {
+            return true;
+        }
+
+        return false;
+    }
 }

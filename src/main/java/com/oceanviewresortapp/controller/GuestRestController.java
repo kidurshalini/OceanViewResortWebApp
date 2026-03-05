@@ -17,6 +17,10 @@ public class GuestRestController extends HttpServlet {
 
     private final Gson gson = new Gson();
 
+
+    protected Connection getConnection() throws Exception {
+        return DB_Connection.getConnection();
+    }
     // GET: /api/guests OR /api/guests/{id}
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
